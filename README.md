@@ -12,6 +12,8 @@ Register ve Login işlemleri
 
 Video Anlatımı : https://youtu.be/9Uwk0obccPM
 
+<iframe width="1280" height="688" src="https://www.youtube.com/embed/9Uwk0obccPM" title="Örnek E-ticaret sitesi yaptım, aradığınız her şey var :)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ![Ekran Görüntüsü](https://github.com/ercansahin16/e-commerce-X/blob/main/img/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202024-10-22%20153916.png?raw=true)
 ...
 ![Ekran Görüntüsü](https://github.com/ercansahin16/e-commerce-X/blob/main/img/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202024-10-22%20153937.png?raw=true)
