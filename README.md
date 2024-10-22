@@ -1,14 +1,20 @@
 Proje Özellikleri:
 
-Sepete ekleme ve alışverişe devam etme
-Yönetici paneli ile ürün yönetimi, sipariş takibi ve kullanıcı verilerini görüntüleme
-Ajax ile sayfa yenilemeden ürün güncelleme
-Güvenli ödeme entegrasyonu
-Kolay kayıt ve giriş işlemleri
-Modern ve mobil uyumlu arayüz
-SignalR 
-Register ve Login işlemleri
+Sepete Ekleme ve Alışverişe Devam Etme: Kullanıcılar ürünleri sepetlerine ekleyebilir ve alışverişe ara vermeden devam edebilirler.
 
+Yönetici Paneli: Ürün yönetimi, sipariş takibi ve kullanıcı verilerini görüntüleme gibi işlemleri kolayca yapabilen kapsamlı bir yönetici paneli.
+
+Sayfa Yenilemeden Ürün Güncelleme (Ajax): Ajax teknolojisi ile sayfa yenilemeye gerek kalmadan ürünleri güncelleyebilme imkanı.
+
+Güvenli Ödeme Entegrasyonu: Güvenli ödeme seçenekleri ile sorunsuz ve hızlı ödeme işlemleri.
+
+Kolay Kayıt ve Giriş İşlemleri: Kullanıcı dostu arayüz ile hızlı kayıt olma ve giriş yapma deneyimi.
+
+Modern ve Mobil Uyumlu Arayüz: Her cihaza uygun, modern ve şık bir tasarım.
+
+SignalR ile Gerçek Zamanlı İşlemler: Kullanıcılar arası gerçek zamanlı bildirimler ve işlemler.
+
+Kayıt ve Giriş İşlemleri: Güvenli ve kullanıcı dostu oturum açma ve kayıt olma işlemleri.
 
 Video Anlatımı : https://youtu.be/9Uwk0obccPM
 [![YouTube Video](https://img.youtube.com/vi/9Uwk0obccPM/0.jpg)](https://www.youtube.com/watch?v=9Uwk0obccPM)
