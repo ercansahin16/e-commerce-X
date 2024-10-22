@@ -1,0 +1,313 @@
+﻿ <!doctype html>
+<html class="no-js" lang="">
+<head>
+   <!-- Basic page needs
+   ============================================ -->
+   <meta charset="utf-8">
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+   <title>15 Mart ETicaret</title>
+   <meta name="description" content="">
+   <!-- Mobile specific metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- Favicon -->
+   <link rel="shortcut icon" type="image/x-icon" href="~/img/myimg/logoSade.png">
+   <!--All Fonts  Here -->
+   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Bitter:400,700' rel='stylesheet' type='text/css'>
+   <link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+
+   <!-- ALL CSS FILES HERE -->
+   <!-- TOAST İÇİN -->
+   <link rel="stylesheet" type="text/css" href="~/ADMİN_PANEL_TEMPLATE/theme/assets/global/plugins/bootstrap-toastr/toastr.min.css" />
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="~/css/bootstrap.min.css">
+   <!-- font-awesome CSS -->
+   <link rel="stylesheet" href="~/css/font-awesome.min.css">
+   <!-- fancybox CSS -->
+   <link rel="stylesheet" href="~/css/fancybox/jquery.fancybox.css">
+   <!--bxslider CSS -->
+   <link rel="stylesheet" href="~/css/jquery.bxslider.min.css">
+   <!-- owl.carousel CSS-->
+   <link rel="stylesheet" href="~/css/owl.carousel.css">
+   <!-- owl.carousel transitions CSS-->
+   <link rel="stylesheet" href="~/css/owl.transitions.css">
+   <!-- owl.theme CSS-->
+   <link rel="stylesheet" href="~/css/owl.theme.css">
+   <!-- rs-plugin CSS -->
+   <!-- slider revolution css settings -->
+   <link rel="stylesheet" type="text/css" href="~/lib/rs-plugin/css/settings.css" media="screen" />
+   <!-- animate CSS -->
+   <link rel="stylesheet" href="~/css/animate.css">
+   <!-- jquery-ui-->
+   <link rel="stylesheet" href="~/css/jquery-ui.css">
+   <!-- css for mobile menu-->
+   <link rel="stylesheet" href="~/css/mobile_menu.min.css">
+   <!-- normalize CSS -->
+   <link rel="stylesheet" href="~/css/normalize.css">
+   <!-- main CSS -->
+   <link rel="stylesheet" href="~/css/main.css">
+   <!-- style CSS -->
+   <link rel="stylesheet" href="~/style.css">
+   <!-- responsive CSS -->
+   <link rel="stylesheet" href="~/css/responsive.css">
+   <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css' rel='stylesheet' type='text/css'>
+
+   <!-- modernizr js -->
+   <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
+   <script src="~/js/vendor/jquery-1.11.3.min.js"></script>
+  @*  Signalr lib *@
+   <script src="~/lib/microsoft-signalr/signalr.min.js"></script>
+   <script src="~/js/site.js"></script>
+  @* toast *@
+  <!-- Toastr CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+   <style>
+      body{
+         margin:0;
+         padding-top:250px;
+      }
+
+     
+
+         .notification {
+      position:fixed;
+      bottom:20px;
+      left:20px;
+      background:#007bff;
+      color:white;
+      border-radius:5px;
+      padding:10px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      z-index:1200;
+      display:none;
+      opacity:0;
+      transition: opacity 0.5s, transform 0.5s;
+   }
+
+      .notification.show {
+         display: block;
+         opacity: 1;
+         transform: translateY(0);
+      }
+
+      .notification.hide {
+         opacity: 0;
+         transform: translateY(20px);
+   }
+   </style>
+
+  
+
+
+
+</head>
+
+
+<body>
+  
+   @await Component.InvokeAsync("Menus")
+
+   <div id="cart-notification" class="notification">
+   Sepete Eklendi
+</div>
+
+
+   <div class="content" style="margin-top:40px">
+      @RenderBody()
+   </div>
+
+
+
+   @await Component.InvokeAsync("Footers")
+
+
+   <!-- ALL JS FILES HERE -->
+   <!-- TOAST İÇİN -->
+   <script src="~/ADMİN_PANEL_TEMPLATE/theme/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+   <script src="~/ADMİN_PANEL_TEMPLATE/theme/assets/admin/pages/scripts/ui-toastr.js"></script>
+
+
+   <!-- jquery js -->
+   <!-- price_slider js -->
+   <script src="~/js/price_slider.js"></script>
+   <!-- bootstrap js -->
+   <script src="~/js/bootstrap.min.js"></script>
+   <!-- owl.carousel.min js -->
+   <script src="~/js/owl.carousel.min.js"></script>
+   <!-- slicknav js -->
+   <script src="~/js/jquery.mobilemenu.js"></script>
+   <!-- parallax js -->
+   <script src="~/js/parallax.js"></script>
+   <!-- treeview js -->
+   <script src="~/js/jquery.treeview.js"></script>
+   <!-- jquery mixitup js -->
+   <script src="~/js/jquery.mixitup.min.js"></script>
+   <!-- jquery.scrollUp js -->
+   <script src="~/js/jquery.scrollUp.min.js"></script>
+   <!-- jquerye levatezoom js -->
+   <script src="~/js/jquery.elevatezoom.js"></script>
+   <!-- jquerye countdown js -->
+   <script src="~/js/countdown.js"></script>
+   <!-- jquery fancybox js -->
+   <script src="~/js/jquery.fancybox.pack.js"></script>
+   <!-- jquery bx-slider js -->
+   <script src="~/js/bx-slider.min.js"></script>
+   <!-- jquery.easing js -->
+   <script src="~/js/jquery.easing.1.3.min.js"></script>
+   <!--RS Lib js -->
+   <script type="text/javascript" src="~/lib/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+   <script type="text/javascript" src="~/lib/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+   <script type="text/javascript" src="~/js/rs-slider.js"></script>
+   <!-- jquery.appear js -->
+   <script src="~/js/jquery.appear.js"></script>
+   <!-- wow js -->
+   <script src="~/js/wow.js"></script>
+   <script>
+      new WOW().init();
+   </script>
+   <!-- plugins js -->
+   <script src="~/js/plugins.js"></script>
+   <!-- main js -->
+   <script src="~/js/main.js"></script>
+   <script src="~/js/sadecerakam.js"></script>
+   @RenderSection("Scripts", required: false)
+@*    <script>
+      
+      $(document).on('click', '.add-to-cart', function () {
+         var productID = $(this).data('product-id');
+         if (productID!=null) {
+             $.ajax({
+            url: '/Home/AddTocart',
+            type: 'POST',
+            data: { id: productID },
+            success: function (response) {
+               if (response.success) {
+                  $('#cart-summary-container').load('/Home/CartSummary');
+
+                     // toastr.options = {
+                     //    "closeButton": true,
+                     //    "debug": false,
+                     //    "positionClass": "toast-bottom-left",
+                     //    "onclick": null,
+                     //    "showDuration": "1000",
+                     //    "hideDuration": "1000",
+                     //    "timeOut": "3000",
+                     //    "extendedTimeOut": "1000",
+                     //    "showEasing": "swing",
+                     //    "hideEasing": "linear",
+                     //    "showMethod": "fadeIn",
+                     //    "hideMethod": "fadeOut"
+                     // }
+                     toastr.options = {
+   "closeButton": true,
+   "debug": false,
+   "newestOnTop": false,
+   "progressBar": true,
+   "positionClass": "toast-bottom-left", // Kutucuğun ekranın neresinde çıkacağını belirler.
+   "preventDuplicates": false,
+   "onclick": null,
+   "showDuration": "300",
+   "hideDuration": "1000",
+   "timeOut": "5000",  // Toast'un ne kadar süre görünür kalacağını ayarlayabilirsin.
+   "extendedTimeOut": "1000",
+   "showEasing": "swing",
+   "hideEasing": "linear",
+   "showMethod": "fadeIn",
+   "hideMethod": "fadeOut"
+}
+
+                     if (response.message == "Ürün sepete eklendi") {
+
+                        toastr.success('Ürün sepete eklendi', 'Eticaret');
+                     }
+                     else {
+                        toastr.warning('Ürün sepette zaten mevcut', 'Eticaret');
+                     }
+
+                  $('#cart-notification').text(response.message);
+               }
+            },
+            error: function () {
+               alert("ürün sepete eklenirken hata oluştu");
+
+            }
+         });
+         }
+
+        
+      });
+   </script> *@
+  <script>
+   // Toastr ayarları
+   toastr.options = {
+      "closeButton": true,
+      "progressBar": true,
+      "positionClass": "toast-bottom-left",
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+   }
+
+   // Başarı mesajı
+   function showSuccessToast() {
+      toastr.success('Ürün başarıyla sepete eklendi', 'Başarılı');
+   }
+
+   // Uyarı mesajı (zaten sepette)
+   function showWarningToast() {
+      toastr.warning('Bu ürün zaten sepette mevcut', 'Uyarı');
+   }
+
+   $(document).on('click', '.add-to-cart', function () {
+      var productID = $(this).data('product-id');
+      if (productID != null) {
+         $.ajax({
+            url: '/Home/AddToCart',
+            type: 'POST',
+            data: { id: productID },
+            success: function (response) {
+               if (response.success) {
+                  $('#cart-summary-container').load('/Home/CartSummary');
+
+                  // Sunucudan dönen mesaja göre toastr mesajı göster
+                  if (response.message == "Ürün sepete eklendi") {
+                     showSuccessToast(); // Başarı bildirimi
+                  } else if (response.message == "Ürün zaten sepette") {
+                     showWarningToast(); // Uyarı bildirimi
+                  }
+               }
+            },
+            error: function () {
+               alert("Ürün sepete eklenirken bir hata oluştu.");
+            }
+         });
+      }
+   });
+</script>
+
+
+</body>
+</html>
+
+@if (TempData["Message"] != null)
+{
+   <script type="text/javascript">
+      window.onload = function () {
+         var message = '@TempData["Message"]';
+         alert(message);
+      };
+   </script>
+} 
+
+

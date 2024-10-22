@@ -1,0 +1,439 @@
+﻿@using yyuna.MainModel
+@model MainPageModel
+@{
+   ViewData["Title"] = "Details";
+   Layout = "~/Views/Shared/DefaultLayout.cshtml";
+   Yazilima15MartETicaretContext context = new Yazilima15MartETicaretContext();
+   decimal? fiyat = 0;
+   decimal? indirim = 0;
+}
+
+<div style=" margin-top:35px"></div>
+
+<!-- breadcrumb area start  -->
+<div id="sp-breadcrumb-wrapper">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12 col-md-12" id="sp-breadcrumb">
+            <div class="sp-column ">
+               <div class="sp-module ">
+                  <div class="sp-module-content">
+                     <ul class="breadcrumb">
+                        <li><i class="fa fa-home"></i></li>
+                        <li class="active">@Model.CategoryName</li>
+
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- breadcrumb area End  -->
+<!-- Single product area start  -->
+<div class="shop-wrapper">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="shop-by">
+               <h3>Ürün Filtrele</h3>
+            </div>
+            <div class="all-shop-cat">
+               <form action="/Home/DpProduct" method="post">
+                  <div class="single-shop-cat" style=" border-color:black;">
+
+
+                     @{
+                        List<SelectListItem> categories = new();
+                        foreach (var item in ViewBag.Categories as List<Category>)
+                        {
+
+                           SelectListItem category = new();
+                           category.Text = item.CategoryName;
+                           category.Value = item.CategoryID.ToString();
+                           categories.Add(category);
+                        }
+                     }
+
+                     <h3 style="display: block; align-items: center; ">
+                        <span style="background-color: #007ACC; color: #ffffff; padding: 3px 8px; border-radius: 8px; font-family: 'Arial', sans-serif; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); width:100%;display:block;margin-bottom:10px;">
+                           Kategori Seçiniz
+                        </span>
+                        <div style="width: 100%;">
+                           @Html.DropDownList("CategoryID", new SelectList(categories, "Value", "Text"), new { @style = "width: 100%; padding: 3px 8px; border-radius: 8px; border: 1px solid #007ACC; font-family: 'Arial', sans-serif; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);" })
+                        </div>
+
+
+                     </h3>
+                     <hr />
+
+                     <h3 class="manufacturers">
+                        <span style="background-color: #007ACC; color: #ffffff; padding: 3px 8px; border-radius: 8px; font-family: 'Arial', sans-serif; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);width:100%;display:block;margin-bottom:10px">
+                           Marka Seçiniz
+                        </span>
+                     </h3>
+
+
+                     <ul>
+
+                        @foreach (var item in ViewBag.Supliers as List<Supplier>)
+                        {
+                           <li>
+                              <div class="chack-boutton">
+                                 <input type="checkbox" name="SupplierID" value="@item.SupplierID">
+                              </div>
+                              <a href="/Home/SupplierPage/@item.SupplierID">@item.BrandName</a>
+                              <span>
+                                 @{
+                                    int ProductCount = context.Products.Where(x => x.SupplierID == item.SupplierID && x.Active).Count();
+                                 }
+                                 (@ProductCount)
+
+                              </span>
+                           </li>
+                        }
+                     </ul>
+                     <br />
+                     <hr />
+                     <br />
+                     <h3>
+                        <div style="border:solid 1px black; padding:20px  20px;">
+                           @Html.RadioButton("isInStock", "1", new { Value = "1", @checked = true })
+                           @Html.Label("Stokta Olanlar")
+                           &nbsp;&nbsp;&nbsp;
+                           @Html.RadioButton("isInStock", "0", new { Value = "0" })
+                           @Html.Label("Hepsi")
+                        </div>
+                     </h3>
+                     <hr />
+                     <div style="border:1px solid">
+                        <h3 class="manufacturers">Fiyat Aralığı</h3>
+                        <div id="slider-range"></div>
+                        <div class="price_filter" style="">
+                           <p><input type="text" id="amount" name="price" placeholder="Fiyat Gir" /></p>
+
+                        </div>
+                     </div>
+                     <br />
+
+                     <br />
+                     <input style="background-color: #007ACC; color: #ffffff; padding: 10px 20px; border-radius: 8px; font-family: 'Arial', sans-serif; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);width:100%;display:block;margin-bottom:10px" type="submit" value="Ara" />
+                  </div>
+               </form>
+
+            </div>
+         </div>
+
+
+
+
+
+
+
+         <div class="col-sm-9 col-md-9 col-lg-9">
+            <div class="back-to-category">
+               Şu Kategoride:
+               <a title=" @Model.CategoryName kategorisinde diğer ürünler için tıklayın" class="product-details" href="/Home/CategoryPage/@Model.ProductDetails?.CateoryID"> @Model.CategoryName</a>
+            </div>
+            <div class="clear"></div>
+            <div class="row">
+               <div class="col-sm-12 col-md-5 col-lg-5">
+                  <div class="product-view">
+                     <div class="full-product-img">
+                        <div class="tab-content">
+                          @*  <div id="home" class="tab-pane fade in active">
+                              <img class="zoom_01" src="~/resimler/@Model.ProductDetails?.PhotoPath" data-zoom-image="/resimler/@Model.ProductDetails?.PhotoPath" alt="" />
+                           </div>
+                         
+
+                           <div id="menu1" class="tab-pane fade">
+                              <img class="zoom_01" src="~/resimler/@Model.ProductDetails?.PhotoPath" data-zoom-image="/resimler/@Model.ProductDetails?.PhotoPath" alt="" />
+                           </div>
+                           <div id="menu2" class="tab-pane fade">
+                              <img class="zoom_01" src="~/resimler/@Model.ProductDetails?.PhotoPath" data-zoom-image="/resimler/@Model.ProductDetails?.PhotoPath" alt="" />
+                           </div>
+                           <div id="menu3" class="tab-pane fade">
+                              <img class="zoom_01" src="~/resimler/@Model.ProductDetails?.PhotoPath" data-zoom-image="/resimler/@Model.ProductDetails?.PhotoPath" alt="" />
+                           </div> *@
+
+                           <img class="zoom_01" src="~/resimler/@Model.ProductDetails?.PhotoPath" data-zoom-image="/resimler/@Model.ProductDetails?.PhotoPath" />
+                        </div>
+                     </div>
+                     <div class="small-products">
+                        <ul class="nav nav-tabs">
+                           <li class="active">
+                              <a data-toggle="tab" href="#">
+                                 <img src="~/resimler/@Model.ProductDetails?.PhotoPath" alt="">
+                              </a>
+                           </li>
+                           <li>
+                              <a data-toggle="tab" href="#">
+                                 <img src="~/resimler/@Model.ProductDetails?.PhotoPath" alt="">
+                              </a>
+                           </li>
+                           <li>
+                              <a data-toggle="tab" href="#">
+                                 <img src="~/resimler/@Model.ProductDetails?.PhotoPath" alt="">
+                              </a>
+                           </li>
+                           <li>
+                              <a data-toggle="tab" href="#">
+                                 <img src="~/resimler/@Model.ProductDetails?.PhotoPath" alt="">
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-sm-12 col-md-7 col-lg-7">
+                  <div class="single-product-info sp-info-area">
+                     <div class="product-name"><h1> @Model.ProductDetails?.ProductName</h1></div>
+                     <div class="product-rating">
+                        <div title="Rating: 3/5" class="ratingbox">
+                           <div class="stars-orange" style="width:@(@Model.ProductDetails?.Ortalama * 1)px;"></div>
+                        </div>
+                        <span class="amount"> Puan </span>
+                        <p class="in-stock">
+                           Stok:
+                           @if (Model.ProductDetails?.Stock == 0)
+                           {
+                              <span>Tükendi</span>
+                           }
+                           else
+                           {
+
+                              <span>@Model.ProductDetails?.Stock</span>
+                           }
+                        </p>
+                     </div>
+                     <div class="all-prices">
+                        @* <span class="sp-price price-lessprice"> @{
+                        /*
+                        * 100->unitprice
+                        * indirimOranı=2->Discounted
+                        * İndirim=fiyat*İndirimOranı/100
+                        * indirimliFiyat=fiyat-indirim
+                        */
+
+                        fiyat = Model.ProductDetails?.UnitPrice;
+                        indirim = fiyat * Model.ProductDetails?.Discount / 100;
+                        fiyat = fiyat - indirim;
+
+                        }
+                        @fiyat TL</span> *@
+                        <span class="sp-price main-price">@Model.ProductDetails?.UnitPrice.ToString("C") </span>
+                        <p class="sku">
+                           Marka:
+                           <a href="/Home/SupplierPage/@Model.ProductDetails?.SupplierID">
+                              <span class="color">
+                                 @Model.BrandName
+                              </span>
+                           </a>
+                        </p>
+                     </div>
+                     <div class="singl-share">
+                        <a href="single-product.html#"><img src="img/single-share.png" alt=""></a>
+                     </div>
+                     <div class="product-short-description">
+                        @Model.ProductDetails?.Notes
+                     </div>
+                     <div class="single-icons">
+                        <ul>
+                           <li><a data-toggle="tooltip" data-placement="top" title="Add Favorite" class="black-tooltip" href="#"><i class="fa fa-heart"></i> </a></li>
+                           <li><a data-toggle="tooltip" data-placement="top" title="Add to compare" class="black-tooltip" href="#"><i class="fa fa-refresh"></i></a></li>
+                           <li><a data-toggle="tooltip" data-placement="top" title="Print" class="black-tooltip" href="#"><i class="fa fa-print"></i></a></li>
+                           <li><a data-toggle="tooltip" data-placement="top" title="Email" class="black-tooltip" href="#"><i class="fa fa-envelope-o"></i></a></li>
+                        </ul>
+                     </div>
+                    @*  <div class="s-product-fields">
+                        <div class="s-product-fields-l">
+                           <span><strong>color</strong></span>
+                           <div class="select-wrapper">
+                              <select class="select-nksearch">
+                                 <option selected="selected">Blue No additional charge</option>
+                                 <option>Yellow +$1.56</option>
+                                 <option>Red +$3.50</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="s-product-fields-l s-product-fields-r">
+                           <span><strong>size</strong></span>
+                           <div class="select-wrapper">
+                              <select class="select-nksearch">
+                                 <option selected="selected">M No additional charge</option>
+                                 <option>L +$12.42</option>
+                                 <option>XL +$14.35</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div> *@
+                     <div class="product-quantity">
+                        <div class="numbers-row">
+                           <input type="text" value="2" name="#">
+                        </div>
+                         
+                        <div class="s-poraduct-botton">
+                           @* <input type="submit" value="Sepete Ekle"> *@
+                         
+                           <a  style="float:right;background-color:#2980b9;color:#fff; border: 1px solid #000; font-weight:1000; font-size: 12px;  padding:10px 10px; text-transform: uppercase;" class="btn add-to-cart">
+                              Sepete Ekle
+                              </a>
+                           
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="clear"></div>
+               <div class="col-sm-12 col-md-12 col-lg-12">
+                  <div class="reviews-areas">
+                     <div class="reviw-title">
+                        <ul class="nav nav-tabs">
+                           <li class="active"><a data-toggle="tab" href="single-product.html#description">Detaylı Açıklama</a></li>
+                           <li><a data-toggle="tab" href="single-product.html#review">Yorumlar</a></li>
+                           <li><a data-toggle="tab" href="single-product.html#infomation">Ürün Bilgisi</a></li>
+                        </ul>
+                     </div>
+                     <div class="revew-content-area">
+                        <div class="revew-content-area">
+                           <div class="tab-content">
+                              <div id="description" class="tab-pane fade in active">
+                                 <p>@Model.ProductDetails?.Keywords</p>
+                              </div>
+                              <div id="review" class="tab-pane fade">
+                                 <div class="customer-reviews">
+
+
+                                    @if (Model.comments.Count == 0)
+                                    {
+                                       <h3 class="title-list-reviews">Henüz Yorum Yapılmadı</h3>
+                                    }
+                                    else
+
+                                    {
+
+
+                                       @foreach (var item in Model.comments)
+                                       {
+
+                                       //Burada Kullanıcı adını bastık.
+                                          <div class="list-reviews">
+                                             <div class="review-item normal">
+                                                @{
+                                                   string gizlikullanıcı = "";
+                                                   var name = context.Users.FirstOrDefault(u => u.UserID == item.UserID)?.NameSurname;
+                                                   string[] adsoyad = name.Split(" ");
+                                                   for (int i = 0; i < adsoyad.Length; i++)
+                                                   {
+                                                      gizlikullanıcı += adsoyad[i].Substring(0, 1) + "*****";
+                                                      gizlikullanıcı += " ";
+                                                   }
+                                                }
+                                                <b class="author">@gizlikullanıcı</b>
+
+                                                <span class="vote">
+                                                   <span style="display:inline-block;width:70px;" class="vmicon ratingbox" title="Rating: 4/5">
+                                                      <span style="width:56px" class="stars-orange"></span>
+                                                   </span>
+                                                </span>
+
+
+                                                @* @{
+                                          Buradan da Adddte çekebiliriz.
+                                          var Date = context.Comments.FirstOrDefault(u => u.UserID == item.UserID)?.AddDate;
+                                          } *@
+
+                                                <span class="date">@item.AddDate.ToString("dd MM yyyy,dddd")</span>
+                                                <p class="info">@item.Review</p>
+                                             </div>
+                                             <div class="clear"></div>
+                                          </div>
+                                       }
+                                    }
+
+
+                                 </div>
+                              </div>
+                              <div id="infomation" class="tab-pane fade">
+                                 <div class="product-infomation">
+
+                                    <ul class="list-info">
+                                       @Model.ProductDetails?.Notes
+                                    </ul>
+
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="rp-area">
+                     <div class="all-p-title">
+                        <h3>Benzer Ürünler</h3>
+                     </div>
+                     <div class="singl-shop ">
+                        <div class="row">
+
+                           @foreach (var item in Model.RelatedProduct)
+                           {
+                              <!-- SP-SINGLE Product -->
+                              <div class="col-sm-6 col-md-3 col-lg-3">
+                                 <div class="sp-single">
+                                    <div class="sp-img-area">
+                                       <img alt="" src="~/resimler/@item.PhotoPath" style="width:191px;height:171px" class="first-img">
+                                       <img alt="" src="~/resimler/@item.PhotoPath" style="width:191px;height:171px" class="hover-img">
+                                       <div class="quick-view-detail">
+                                          <a href="/Home/Details/@item.ProductID" style="background-color:#2980b9">Detaylar</a>
+                                       </div>
+                                       <div class="sp-label-pro sp-label-pro-hot" style="background-color:cornflowerblue">Benzer</div>
+                                    </div>
+
+                                    <div class="sp-info-area">
+                                       <h2 class="product-name">
+                                          <a href="/Home/Details/@item.ProductID" title="@item.ProductName detaylı gör">
+                                             @item.ProductName
+
+                                          </a>
+                                       </h2>
+                                       <div class="product-rating">
+                                          <div title=" Rating: 3/5" class="ratingbox">
+                                             <div class="stars-orange" style="width:50px"></div>
+                                          </div>
+                                       </div>
+                                       <p class="all-prices">
+                                          <span class="sp-price main-price">@item.UnitPrice.ToString("C")</span>
+                                       </p>
+                                       <div class="sp-button">
+                                          <div class="s-button">
+                                             <a data-product-id="@item.ProductID" class="black-tooltip add-to-cart all_src_icon" title="" data-placement="top" data-toggle="tooltip" data-original-title="Sepete Ekle"> <i class="fa fa-shopping-cart"></i> </a>
+                                          </div>
+                                          <div class="s-button">
+                                             <a class="black-tooltip add-to-cart all_src_icon" title="Beğen" data-placement="top" data-toggle="tooltip" href="#" data-original-title="add favorite"> <i class="fa fa-heart-o"></i> </a>
+                                          </div>
+                                          <div class="s-button last-b ">
+                                             <a class="black-tooltip add-to-cart all_src_icon" title="" data-placement="top" data-toggle="tooltip" href="/Home/Details/@item.ProductID" data-original-title="Detaylar"> <i class="fa fa-eye"></i> </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- SP-SINGLE Product -->
+                           }
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         
+         
+         
+         
+         
+         
+       
+         </div>
+      </div>
+   </div>
+
+<!--Single product area End  -->

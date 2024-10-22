@@ -1,0 +1,78 @@
+﻿@model yyuna.Models.User
+@{
+   ViewData["Title"] = "Register";
+   Layout = "~/Views/Shared/DefaultLayout.cshtml";
+}
+<div style="margin-top:155px"></div>
+<!-- Checkout area start  -->
+<div class="checkout-wrapper">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+               <div class="all-out-area" style="display:flex;justify-content:center">
+                  <div class="col-sm-12 col-md-4 col-lg-3"></div>
+                  <div class="col-sm-12 col-md-4 col-lg-6">
+                     <div class="bt-info" style="border-color:black">
+                        <h3 class="proopc-process-title">Giriş Bilgilerinizi Giriniz</h3>
+                        <div class="chek-full-info">
+                           <div class="inner-wrap">
+                              <div class="edit-address">
+                                 <form action="@Url.Action("Register", "Home")" method="post">
+
+                                    <div>
+                                       <div class="inner">
+                                          <label class="email">Ad Soyad </label>
+                                          <input type="text" name="NameSurname" required>
+                                       </div>
+                                    </div>
+
+                                    <div>
+                                       <div class="inner">
+                                          <label class="email">Email </label>
+                                          <input type="text" name="Email" maxlength="100" required>
+                                       </div>
+                                    </div>
+                                    <div>
+                                       <div class="inner">
+                                          <label class="email">Şifre </label>
+                                          <input type="password" name="Password" required>
+                                       </div>
+                                    </div>
+                                    <div>
+                                       <div class="inner">
+                                          <label class="email">Telefon </label>
+                                          <input type="text" name="Telephone" required placeholder="05** *** ** ** ">
+                                       </div>
+                                    </div>
+                                    <div>
+                                       <div class="inner">
+                                          <label class="email">Fatura Adresi </label>
+                                          <textarea type="text" name="InvoicesAddress" required  cols="80" rows="4"></textarea>
+                                       </div>
+                                    </div>
+
+                                    <div class="submit_crt">
+                                       <input type="submit" value=" Üye ol" class=" update_cart" style="background-color:#2980b9" />
+                                    </div>
+
+
+
+
+
+
+
+                                 </form>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+           
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+

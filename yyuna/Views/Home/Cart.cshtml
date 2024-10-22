@@ -1,0 +1,190 @@
+﻿@using yyuna.MainModel
+@model Cls_Order
+@{
+   ViewData["Title"] = "Cart";
+   Layout = "~/Views/Shared/DefaultLayout.cshtml";
+   decimal kdvBedeli = 0;
+   decimal kdvDahil = 0;
+}
+
+<style>
+   .sepetbos {
+      display: none;
+   }
+
+   .wishlist-wrapper{
+      padding-top:25px;
+   }
+</style>
+<!-- wishlist area start  -->
+<div class="wishlist-wrapper">
+   <div class="container">
+
+       @if (ViewBag.Sepet != null && ViewBag.Sepet.Count > 0)
+                  {
+      <div class="row">
+         <div class="col-sm-12 col-md-12 col-lg-12 ">
+            <div class="cart-wrapper table-responsive">
+               <table class="shop_table cart ">
+
+                 
+                     <thead >
+                        <tr>
+                           <th colspan="2" class="product-name">Ürün </th>
+                           <th class="product-name">Birim Fiyat</th>
+                           <th class="product-name">Kdv</th>
+                           <th class="product-name">Adet</th>
+                           <th class="product-name">Kdv dahil Toplam Fiyat</th>
+                           <th class="product-name">Sil </th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        @foreach (var item in ViewBag.Sepet as IList<Cls_Order>)
+                        {
+                           <tr class="cart_item">
+                              <td class="product-thumbnail">
+                                 <a href="/Home/Details/@item.ProductID"><img style="width: 130px;height:80px" alt="" class="attachment-shop_thumbnail wp-post-image" src="~/resimler/@item.PhotoPath"></a>
+                              </td>
+                              <td class="product-name">
+                                 <a href="~/Home/Details/@item.ProductID">@item.ProductName</a>
+                              </td>
+
+                              <td class="product-price">
+                                 <span class="amount">@string.Format("{0:#,##0.00}", item.UnitPrice) ₺</span>
+                              </td>
+
+                           
+                              <td class="product-price">
+                                 <span class="amount">%@item.Kdv</span>
+                              </td>
+                              <td class="product-price">
+                                 <span class="amount">@item.Quantity</span>
+                              </td>
+                              <td>
+                                 @{
+                                    kdvBedeli = 0;
+                                    kdvDahil = 0;
+                                    decimal kdvdahilyuvarla = 0;
+                                    kdvBedeli = item.Kdv * item.UnitPrice / 100;
+                                    kdvDahil = (item.UnitPrice + kdvBedeli) * item.Quantity;
+                                    kdvdahilyuvarla = Math.Round(kdvDahil, 2);
+
+                                    @string.Format("{0:#,##0.00}", @kdvdahilyuvarla) <span>₺</span>
+
+                                 }
+                              </td>
+                              <td class="remove-product">
+                                 <a title="Ürün Sil" class="remove" href="@Url.Action("Cart", new {scid=item.ProductID})">
+                                    <span class="icon-close"></span>
+                                 </a>
+                              </td>
+                           </tr>
+                        }
+                     </tbody>
+               
+               </table>
+            </div>
+            <div class="row">
+               <div class="col-lg-3 col-md-3 col-sm-3"></div>
+               <div class="col-lg-6 col-md-6 col-sm-6 ">
+                  <div class="cart_totals">
+                     <h2>Özet</h2>
+                     <div class="total_table">
+                        <table class="table-responsive">
+                           <tbody>
+                              @{
+                                 int count = 0; //Sepetteki Ürün çeşidi
+                                 int totalquantity = 0;//Toplam Adet
+                                 decimal totalprice = 0;
+                                 kdvBedeli = 0;
+                                 kdvDahil = 0;
+                                 decimal kdvHaric = 0;
+
+                                 @foreach (var item in ViewBag.sepet_tablo_detay as IList<Cls_Order>)
+                                 {
+                                    totalquantity += item.Quantity;
+                                    totalprice += item.UnitPrice;
+
+                                    kdvBedeli = item.Kdv * item.UnitPrice / 100;
+                                    kdvDahil += (item.UnitPrice + kdvBedeli) * item.Quantity;
+                                    kdvHaric += item.UnitPrice * item.Quantity;
+                                    count++;
+                                 }
+                                 TempData["Kalem"] = count;
+                                 ViewBag.totalquantity = totalquantity;
+                                 ViewBag.kdvharic = Math.Round(kdvHaric, 2);
+                                 ViewBag.kdvdahil = Math.Round(kdvDahil, 2);
+                                 ViewBag.totalKdv = (Math.Round(kdvDahil, 2) - Math.Round(kdvHaric, 2));
+
+                              }
+
+                              <tr class="cart-subtotal">
+                                 <th>Tutar</th>
+                                 <td>
+                                    <span class="amount">
+                                       @string.Format("{0:#,##0.00}", ViewBag.kdvharic) <span>₺</span>
+
+                                    </span>
+                                 </td>
+                              </tr>
+                              <tr class="shipping">
+                                 <th>KDV</th>
+
+                                 <td>
+                                    @string.Format("{0:#,##0.00}", ViewBag.totalKdv)
+                                    <span>₺</span>
+                                 </td>
+                              </tr>
+                              <tr class="order-total">
+                                 <th>Toplam</th>
+                                 <td>
+                                    <strong>
+                                       <span class="amount">
+                                          @string.Format("{0:#,##0.00}", ViewBag.kdvdahil)
+                                          <span>₺</span>
+
+                                       </span>
+                                    </strong>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <div class="submit_crt">
+                           <div class="col-lg-8"> </div>
+                           <a href="@Url.Action("Order")" title="Ödemeye Geçiniz">
+                              <input type="submit" class="update_cart" value="Ödemeye Geç" />
+                           </a>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      }
+      else
+      {
+
+         <thead class="sepetbos">
+         </thead>
+         <tbody>
+            <tr>
+               <td colspan="7" class="text-center" >
+                  <div style="padding: 20px; border: 2px dashed #ff6b6b; border-radius: 10px; background-color: #fff0f0;margin-bottom:250px;margin-top:60px">
+                     <i class="fas fa-shopping-cart" style="font-size: 40px; color: #ff6b6b;"></i>
+                     <h2 style="color: #ff6b6b; margin-top: 10px;">SEPETİNİZ BOŞ</h2>
+                     <p style="color: #555; font-size: 16px;">Alışverişe devam edin ve beğendiğiniz ürünleri sepete ekleyin!</p>
+                  </div>
+               </td>
+            </tr>
+         </tbody>
+      }
+
+
+   </div>
+</div>
+<!-- wishlist area end  -->
+<script>
+    $('#cart-summary-container').load('/Home/CartSummary');
+</script>

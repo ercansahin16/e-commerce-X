@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Category>
+
+@{
+   ViewData["Title"] = "Kategori Formları - ";
+   Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<!-- BEGIN THEME STYLES -->
+<link href="~1/admİn_panel_template/theme/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+<link id="style_color" href="~/admİn_panel_template/theme/assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico" />
+
+
+<div class="col-md-12" style="margin-top:70px">
+   <div class="white_shd full margin_bottom_30">
+      <div>
+         <div class="mt-3">
+            <h2></h2>
+         </div>
+         @* </div> <span class="label label-sm label-success"> Aktif </span> *@
+         @* </div> <span class="label label-sm label-danger"> Deaktif </span> *@
+
+         <div class="table_section padding_infor_info">
+
+            <div class="table-responsive-sm">
+               <div class="heading1 margin_0 ">
+                  <h2 class="mb-3">Kategori Listesi</h2>
+               </div>
+               <table class="table ">
+                  <thead>
+                     <tr class="fw-bold " style="color:#4D4D4D">
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.CategoryID)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.CategoryName)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.Active)</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+
+                     @foreach (var item in Model.Where(c => c.ParentID == 0))
+                     {
+                        //Ana kategoriler
+                        <tr style="color:white">
+                           <td>@Html.DisplayFor(model => item.CategoryID)</td>
+                           <td>
+                              <i class="mdi mdi-forward" style="margin-right:10px;color:white"></i>
+                              @Html.DisplayFor(model => item.CategoryName)
+                           </td>
+                           <td>
+
+
+                              @if (item.Active)
+                              {
+                                 <span class="badge badge-success" style="color:#000;font-weight: bold;">  Aktif  </span>
+
+                              }
+                              else
+                              {
+                                 <span class="badge badge-warning" style="color:#000;font-weight: bold;">  Pasif  </span>
+                              }
+
+                           </td>
+                           <td>
+                              <a asp-action="CategoryEdit" asp-route-id="@item.CategoryID" class="badge badge-info" style="color:#000;font-weight: bold;">Düzelt</a>
+                           </td>
+                           <td>
+                              <a asp-action="CategoryDetails" asp-route-id="@item.CategoryID" class="badge badge-primary" style="color:#000;font-weight: bold;">Detay</a>
+                           </td>
+                           <td>
+                              <a asp-action="CategoryDelete" asp-route-id="@item.CategoryID" class="badge badge-danger " style="color:#000;font-weight: bold;">Sil</a>
+                           </td>
+                        </tr>
+
+                        @foreach (var subitem in Model.Where(sc => sc.ParentID == item.CategoryID))
+                        {
+                           //Alt kategoriler
+                           <tr style="color:white">
+                              <td>@Html.DisplayFor(model => subitem.CategoryID)</td>
+                              <td><i class="mdi mdi-subdirectory-arrow-right" style="margin-right:10px;color:white"></i>@Html.DisplayFor(model => subitem.CategoryName)</td>
+                              @* <td>@Html.DisplayFor(model => subitem.Active)</td> *@
+                              <td>
+                                 @if (subitem.Active)
+                                 {
+                                    <span class="badge badge-success" style="color:#000;font-weight: bold;">  Aktif  </span>
+
+                                 }
+                                 else
+                                 {
+                                    <span class="badge badge-warning" style="color:#000;font-weight: bold;">  Pasif  </span>
+                                 }
+
+                              </td>
+                              <td>
+                                 <a asp-action="CategoryEdit" asp-route-id="@subitem.CategoryID" class="badge badge-info" style="color:#000;font-weight: bold;">Düzelt</a>
+                              </td>
+                              <td>
+                                 <a asp-action="CategoryDetails" asp-route-id="@subitem.CategoryID" class="badge badge-primary" style="color:#000;font-weight: bold;">Detay</a>
+                              </td>
+                              <td>
+                                 <a asp-action="CategoryDelete" asp-route-id="@subitem.CategoryID" class="badge badge-danger" style="color:#000;font-weight: bold;">Sil</a>
+                              </td>
+                           </tr>
+                        }
+                     }
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <p>
+
+         <a asp-action="CategoryCreate" asp-controller="Admin" class="btn w-100" style="background-color:#191C24;color:#FFFFFF"> Yeni Kategori Ekle</a>
+      </p>
+   </div>
+   </div>

@@ -1,0 +1,80 @@
+﻿@* @model IEnumerable<Product> *@
+@model yyuna.MainModel.MainPageModel
+@{
+   ViewData["Title"] = "NewProduct ";
+   Layout = "~/Views/Shared/DefaultLayout.cshtml";
+   Yazilima15MartETicaretContext context = new();
+}
+
+
+<!-- Single product area start  -->
+<div class="shop-wrapper">
+   <div class="container">
+      <div class="row">
+
+         <div class="col-sm-9 col-md-12 col-lg-12">
+            <div class="row">
+               <div class="col-sm-12 col-md-12 col-lg-12">
+                  <div class="rp-area">
+                     <div class="singl-shop ">
+                        <div class="row">
+                           <div id="products" class="row">
+
+                              <div style="padding: 15px;margin-left:10px; ">
+                                 <h1 style="font-family: 'Arial', sans-serif; font-size: 24px; color: #333; margin-bottom:-20px">
+                                    @ViewData["TitlePage"] Marka Ürünleri
+                                  
+                                 </h1>
+                              </div>
+                              <hr style="margin-bottom: 20px;border:solid 1px grey" />
+                             
+                              @foreach (var item in Model.ProductsBySupplier)
+                              {
+                                 <!-- SP-SINGLE Product -->
+                                 <div class="col-sm-6 col-md-3 col-lg-3">
+                                    <div class="sp-single">
+                                       <div class="sp-img-area">
+                                          <img class="first-img" src="~/resimler/@item.PhotoPath" alt="@item.Keywords" style="width:208px; height:128px" />
+                                          <img class="hover-img" src="~/resimler/@item.PhotoPath" alt="@item.Keywords" style="width:208px; height:128px" />
+                                          <div class="quick-view-detail">
+                                             <a href="/Home/Details/@item.ProductID" style="background-color:#2980b9">Detaylar</a>
+                                          </div>
+
+                                       </div>
+                                       <div class="sp-info-area">
+                                          <h2 class="product-name"><a title="@item.ProductName incelemek için tıklayın" href="/Home/Details/@item.ProductID"> @item.ProductName </a></h2>
+                                          @* <div class="product-rating">
+                                       <div class="ratingbox" title="" Rating="3/5">
+                                       <div style="width:50px" class="stars-orange"></div>
+                                       </div>
+                                       </div> *@
+                                          <p class="all-prices">
+                                             <span class="sp-price main-price"> @string.Format("{0:#,##0.00}", item.UnitPrice) ₺</span>
+                                          </p>
+                                          <div class="sp-button">
+                                             <div class="s-button">
+                                                <a data-product-id="@item.ProductID" data-toggle="tooltip" data-placement="top" title="Sepete Ekle" class="black-tooltip add-to-cart all_src_icon"> <i class="fa fa-shopping-cart"></i> </a>
+                                             </div>
+                                             <div class="s-button">
+                                                <a href="index.html#" data-toggle="tooltip" data-placement="top" title="Favorilere Ekle" class="black-tooltip add-to-cart all_src_icon">  </a>
+                                             </div>
+                                             <div class="s-button last-b ">
+                                                <a href="/Home/Details/@item.ProductID" data-toggle="tooltip" data-placement="top" title="Detaylar" class="black-tooltip add-to-cart all_src_icon"> <i class="fa fa-eye"></i> </a>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              }
+
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!--Single product area End  -->

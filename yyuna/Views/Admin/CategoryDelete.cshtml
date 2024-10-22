@@ -1,0 +1,57 @@
+﻿@model yyuna.Models.Category
+@{
+    ViewData["Title"] = "Categori Sil - ";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<!-- BEGIN THEME STYLES -->
+<link href="~1/admİn_panel_template/theme/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+<link id="style_color" href="~/admİn_panel_template/theme/assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico" />
+
+<!-- BEGIN SAMPLE FORM PORTLET-->
+<div class="col-md-12" style="margin-top:70px;border:1px grey solid;">
+    <div class="white_shd full margin_bottom_30">
+        <div>
+            <div class="mt-3">
+                <h2></h2>
+            </div>
+            <div class="table_section padding_infor_info">
+
+                <div class="table-responsive-sm">
+                    <div class="heading1 margin_0 ">
+                        <h2 class="mb-3">Kategori Silme Listesi</h2>
+                    </div>
+                    <table class="table ">
+                        <thead>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(x => x.CategoryID)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(x => x.CategoryName)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(x => x.Active)</th>
+                        </thead>
+                        <tbody>
+                            <tr style="color:white">
+                                <td>@Html.DisplayFor(model => model.CategoryID)</td>
+                                <td>@Html.DisplayFor(model => model.CategoryName)</td>
+                                <td>@Html.DisplayFor(model => model.Active)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <form asp-action="CategoryDelete" method="post">
+                        <input type="hidden" asp-for="CategoryID" />
+                        <p style="margin-top:60px">
+                     <input type="submit" value="Sil" class="btn w-100" style="background-color:#191C24;color:#FFFFFF" onclick="return confirm('Silinsin mi?')" />
+                        </p>
+                        <p>
+                     <a asp-action="CategoryIndex" asp-controller="Admin" class="btn w-100" style="background-color:#191C24;color:#FFFFFF"> Kategori Listesi</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>

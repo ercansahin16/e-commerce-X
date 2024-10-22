@@ -1,0 +1,106 @@
+﻿@{
+   ViewData["Title"] = "DetailedSearch";
+   Layout = "~/Views/Shared/DefaultLayout.cshtml";
+   Yazilima15MartETicaretContext context = new Yazilima15MartETicaretContext();
+}
+
+
+<div style="margin-top:155px"></div>
+<!-- Single product area start  -->
+<div class="shop-wrapper">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-3 col-md-3 col-lg-3"></div>
+         <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="shop-by">
+               <h3>Detaylı Arama</h3>
+            </div>
+            <div class="all-shop-cat">
+               <form action="/Home/DpProduct" method="post">
+                  <div class="single-shop-cat" style=" border-color:black;">
+
+
+                     @{
+                        List<SelectListItem> categories = new();
+                        foreach (var item in ViewBag.Categories as List<Category>)
+                        {
+
+                           SelectListItem category = new();
+                           category.Text = item.CategoryName;
+                           category.Value = item.CategoryID.ToString();
+                           categories.Add(category);
+                        }
+                     }
+
+                     <h3 style="display: block; align-items: center; ">
+                        <span style="background-color: #007ACC; color: #ffffff; padding: 3px 8px; border-radius: 8px; font-family: 'Arial', sans-serif; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); width:100%;display:block;margin-bottom:10px;">
+                           Kategori Seçiniz
+                        </span>
+                        <div style="width: 100%;">
+                           @Html.DropDownList("CategoryID", new SelectList(categories, "Value", "Text"), new { @style = "width: 100%; padding: 3px 8px; border-radius: 8px; border: 1px solid #007ACC; font-family: 'Arial', sans-serif; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);" })
+                        </div>
+
+
+                     </h3>
+                     <hr />
+
+                     <h3 class="manufacturers">
+                        <span style="background-color: #007ACC; color: #ffffff; padding: 3px 8px; border-radius: 8px; font-family: 'Arial', sans-serif; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);width:100%;display:block;margin-bottom:10px">
+                           Marka Seçiniz
+                        </span>
+                     </h3>
+
+
+                     <ul>
+
+                        @foreach (var item in ViewBag.Supliers as List<Supplier>)
+                        {
+                           <li>
+                              <div class="chack-boutton">
+                                 <input type="checkbox" name="SupplierID" value="@item.SupplierID">
+                              </div>
+                              <a href="/Home/SupplierPage/@item.SupplierID">@item.BrandName</a>
+                              <span>
+                                 @{
+                                    int ProductCount = context.Products.Where(x => x.SupplierID == item.SupplierID && x.Active).Count();
+                                 }
+                                 (@ProductCount)
+
+                              </span>
+                           </li>
+                        }
+                     </ul>
+                     <br />
+                     <hr />
+                     <br />
+                     <h3>
+                        <div style="border:solid 1px black; padding:20px  20px;">
+                           @Html.RadioButton("isInStock", "1", new { Value = "1", @checked = true })
+                           @Html.Label("Stokta Olanlar")
+                           &nbsp;&nbsp;&nbsp;
+                           @Html.RadioButton("isInStock", "0", new { Value = "0" })
+                           @Html.Label("Hepsi")
+                        </div>
+                     </h3>
+                     <hr />
+                     <div style="border:1px solid">
+                        <h3 class="manufacturers">Fiyat Aralığı</h3>
+                        <div id="slider-range"></div>
+                        <div class="price_filter" style="">
+                           <p><input type="text" id="amount" name="price" placeholder="Fiyat Gir" /></p>
+
+                        </div>
+                     </div>
+                     <br />
+
+                     <br />
+                     <input style="background-color: #007ACC; color: #ffffff; padding: 10px 20px; border-radius: 8px; font-family: 'Arial', sans-serif; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);width:100%;display:block;margin-bottom:10px" type="submit" value="Ara" />
+                  </div>
+               </form>
+
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!--Single product area End  -->

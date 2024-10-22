@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Product>
+@{
+   ViewData["Title"] = "Ürünler - ";
+   Layout = "~/Views/Shared/AdminLayout.cshtml";
+   Yazilima15MartETicaretContext context = new();
+}
+<!-- BEGIN THEME STYLES -->
+<link href="~1/admİn_panel_template/theme/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+<link id="style_color" href="~/admİn_panel_template/theme/assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico" />
+
+<div class="col-md-12" style="margin-top:70px">
+   <div class="white_shd full margin_bottom_30">
+      <div>
+         <div class="mt-3">
+            <h2></h2>
+         </div>
+         <div class="table_section padding_infor_info">
+
+            <div class="table-responsive-sm">
+               <div class="heading1 margin_0 ">
+                  <h2 class="mb-3">Ürünler Listesi</h2>
+               </div>
+               <table class="table ">
+                  <thead>
+                     <tr class="fw-bold " style="color:#4D4D4D">
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.ProductID)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.ProductName)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.UnitPrice)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.CateoryID)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.SupplierID)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.Stock)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.Discount)</th>
+                        <th style="font-weight:bold">ID - @Html.DisplayNameFor(model => model.StatusID)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.Related)</th>
+                        <th style="font-weight:bold">@Html.DisplayNameFor(model => model.Active)</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     @foreach (var item in Model)
+                     {
+                        <tr style="color:white">
+                           <td>@Html.DisplayFor(model => item.ProductID)</td>
+                     @*       <td > @Html.DisplayFor(model => item.ProductName)</td> *@
+                           <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;" title=" @Html.DisplayFor(model => item.ProductName)">
+                              @Html.DisplayFor(model => item.ProductName)
+                           </td>
+
+                           <td> @string.Format("{0:#,##0.00}", item.UnitPrice) ₺</td>
+                           <td>
+                              @{
+
+                                 string? ctgName = context.Categories.FirstOrDefault(x => x.CategoryID == item.CateoryID)?.CategoryName;
+                                 @ctgName
+                                 ;
+                              }
+                           </td>
+                           <td>
+                              @{
+                                 string? splName = context.Suppliers.FirstOrDefault(x => x.SupplierID == item.SupplierID)?.BrandName;
+                                 @splName
+                                 ;
+                              }
+                           </td>
+                           <td> @Html.DisplayFor(model => item.Stock)</td>
+                           <td> @Html.DisplayFor(model => item.Discount)</td>
+                           <td>
+                              @if (item.StatusID == 1)
+                              {
+                                 <span>(@Html.DisplayFor(model => item.CateoryID)) &nbsp Slider Ürün </span>
+                              }
+                              @if (item.StatusID == 2)
+                              {
+                                 <span>(@Html.DisplayFor(model => item.CateoryID)) &nbsp Özel Ürün</span>
+                              }
+                              @if (item.StatusID == 3)
+                              {
+                                 <span>(@Html.DisplayFor(model => item.CateoryID)) &nbsp Yıldızlı Ürün</span>
+                              }
+                              @if (item.StatusID == 4)
+                              {
+                                 <span>(@Html.DisplayFor(model => item.CateoryID)) &nbsp Fırsat Ürün</span>
+                              }
+                              @if (item.StatusID == 5)
+                              {
+                                 <span>(@Html.DisplayFor(model => item.CateoryID)) &nbsp Dikkat Çeken</span>
+                              }
+                              @if (item.StatusID == 6)
+                              {
+                                 <span>(@Html.DisplayFor(model => item.CateoryID)) &nbsp Günün Ürün</span>
+                              }
+
+                           </td>
+                           <td> @Html.DisplayFor(model => item.Related)</td>
+
+                           <td>
+                              @if (item.Active)
+                              {
+                                 <span class="badge badge-success " style="color:#000;font-weight: bold;">  Aktif  </span>
+
+                              }
+                              else
+                              {
+                                 <span class="badge badge-warning" style="color:#000;font-weight: bold;">  Pasif  </span>
+                              }
+
+                           </td>
+                           <td>
+                              <a asp-action="ProductEdit" asp-route-id="@item.ProductID" class="badge badge-info" style="color:#000;font-weight: bold;">Düzelt</a>
+                           </td>
+                           <td>
+                              <a asp-action="ProductDetails" asp-route-id="@item.ProductID" class="badge badge-primary" style="color:#000;font-weight: bold;">Detay</a>
+                           </td>
+                           <td>
+                              <a asp-action="ProductDelete" asp-route-id="@item.ProductID" class="badge badge-danger " style="color:#000;font-weight: bold;">Sil</a>
+                           </td>
+                        </tr>
+                     }
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+      <p>
+
+         <a asp-action="ProductCreate" asp-controller="Admin" class="btn w-100" style="background-color:#191C24;color:#FFFFFF"> Yeni Ürün Ekle</a>
+      </p>
+   </div>
+</div>

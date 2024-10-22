@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Confirm";
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+}
+
+
+
+<div style="text-align: center; padding: 200px; background-color: #f8f9fa; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+	<h1 style="color: #28a745; font-size: 48px; margin-bottom: 20px;">Siparişiniz Başarıyla Tamamlandı!</h1>
+	<p style="color: #6c757d; font-size: 20px; margin-bottom: 30px;">
+		Sipariş numaranız: <strong style="color: #007bff;">@ViewBag.sepetorder</strong><br>
+		Satın aldığınız ürünler en kısa sürede adresinize gönderilecektir.
+	</p>
+	<a href="/Home/Index" style="display: inline-block; padding: 15px 30px; background-color: #007bff; color: #fff; font-size: 18px; border-radius: 5px; text-decoration: none;">Alışverişe Devam Et</a>
+</div>

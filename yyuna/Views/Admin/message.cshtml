@@ -1,0 +1,45 @@
+﻿@model IEnumerable<yyuna.Models.Message>
+
+@{
+   ViewData["Title"] = "mesajlar ";
+   Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<div class="col-lg-12 grid-margin stretch-card" style="margin-top:25px">
+   <div class="card">
+      <div class="card-body">
+         <h4 class="card-title">Inverse table</h4>
+         <p class="card-description">
+            <code>Vitrin Üzerinden kullanıcıdan gelen mesajlar</code>
+         </p>
+         <div class="table-responsive">
+            <table class="table table-dark" style="color:white">
+               <thead>
+                  <tr>
+                     <th>Mesaj ID</th>
+                     <th>Ad Soyad</th>
+                     <th>Email</th>
+                     <th>Başlık</th>
+                     <th>Mesaj</th>
+
+                  </tr>
+               </thead>
+               <tbody>
+                  @foreach (var item in Model)
+                  {
+                     <tr>
+                        <td>@item.MessageID</td>
+                        <td>@item.namesurname</td>
+                        <td>@item.email</td>
+                        <td>@item.Head</td>
+                        <td>@item.Content</td>
+
+
+                     </tr>
+                  }
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+

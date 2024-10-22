@@ -1,0 +1,101 @@
+﻿@model Status
+@{
+    ViewData["Title"] = "Durum Düzeltme";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<!-- BEGIN THEME STYLES -->
+<link href="~1/admİn_panel_template/theme/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+<link id="style_color" href="~/admİn_panel_template/theme/assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico" />
+
+<!-- BEGIN SAMPLE FORM PORTLET-->
+<!-- BEGIN SAMPLE FORM PORTLET-->
+
+   <div class="col-md-12" style="margin-top:70px;border:1px grey solid;">
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption mb-4">
+                    <i class="fa fa-gift"></i> Durum Güncelleme Formu
+                </div>
+                <div class="tools">
+                    <a href="" class="collapse">
+                    </a>
+                    <a href="#portlet-config" data-toggle="modal" class="config">
+                    </a>
+                    <a href="" class="reload">
+                    </a>
+                    <a href="" class="remove">
+                    </a>
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <form class="form-horizontal" role="form" action="/Admin/StatusEdit/" method="post">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-body">
+                        <div class="form-group ">
+                            <label class="col-md-12 control-label mt-4" asp-for=StatusName></label>
+                            <div class="col-md-12 mt-2">
+                                <input asp-for=StatusName class="form-control w-100" placeholder="" required maxlength="100" />
+                            </div>
+                            <span asp-validation-for="StatusName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group d-flex ">
+                            <label style="margin-left:15px;display: flex; align-items: center;" asp-for="Active"></label>
+                            <div style="margin-left:12px">
+                                <input asp-for="Active" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for=StatusID />
+
+                    <div class="mb-3">
+               <input type="submit" value="Güncelle" class="btn w-100" style="background-color:#191C24;color:#FFFFFF" />
+                    </div>
+
+                    <div class="mb-3">
+               <a asp-action="StatusIndex" asp-controller="Admin" class="btn w-100" style="background-color:#191C24;color:#FFFFFF"> Durum Listesi</a>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- END SAMPLE FORM PORTLET-->
+
+
+<style>
+
+    .form-control {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+        .form-control.input-lg {
+            height: calc(1.5em + 1rem + 2px);
+            padding: .5rem 1rem;
+            font-size: 1.25rem;
+            line-height: 1.5;
+            border-radius: .3rem;
+        }
+
+        .form-control.input-sm {
+            height: calc(1.5em + .5rem + 2px);
+            padding: .25rem .5rem;
+            font-size: .875rem;
+            line-height: 1.5;
+            border-radius: .2rem;
+        }
+
+</style>

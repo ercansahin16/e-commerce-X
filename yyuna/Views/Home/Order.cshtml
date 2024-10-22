@@ -1,0 +1,227 @@
+﻿@model User
+@{
+   ViewData["Title"] = "Order";
+   Layout = "~/Views/Shared/DefaultLayout.cshtml";
+}
+
+
+
+<!-- wishlist area start  -->
+<div class="wishlist-wrapper">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12 col-md-12 col-lg-12 ">
+            <div class="row">
+               <div class="col-lg-2 col-md-6 col-sm-6 "></div>
+               <div class="col-lg-10 col-md-6 col-sm-6 ">
+                  <div class="cart_totals">
+                     <h2>Bilgileriniz</h2>
+                     <div class="total_table" style="border-color:black; border:solid">
+                        <table class="table-responsive">
+                           <tbody>
+                              <tr class="cart-subtotal">
+                                 <th>Ad Soyad</th>
+                                 <td><span class="amount">@Model.NameSurname</span></td>
+                              </tr>
+                              <tr class="shipping">
+                                 <th>Email</th>
+                                 <td>@Model.Email</td>
+                              </tr>
+                              <tr class="order-total">
+                                 <th>Telefon</th>
+                                 <td><span class="amount">@Model.Telephone</span> </td>
+                              </tr>
+                              <tr class="order-total">
+                                 <th>Fatura Adresi</th>
+                                 <td><span class="amount">@Model.InvoicesAddress</span></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+
+            <form action="@Url.Action("Order","Home")" method="post">
+
+
+               <div class="row">
+                  <div class="col-lg-2 col-md-6 col-sm-6 "></div>
+                  <div class="col-lg-10 col-md-6 col-sm-6 ">
+                     <div class="cart_totals">
+                        <h2>KART BİLGİLERİNİZİ GİRİN</h2>
+                        <div class="total_table" style="border-color:black; border:solid">
+                           <table class="table-responsive">
+                              <tbody>
+                                 <tr class="cart-subtotal">
+                                    <th>Kredi Kart No</th>
+                                    <td>
+                                       <input type="text" name="kredikartno" maxlength="16" required onkeypress="return numberonly(this,event)" />
+                                    </td>
+                                 </tr>
+
+                                 <tr class="cart-subtotal">
+                                    <th>Ay</th>
+                                    <td>
+                                       <input type="text" name="kredikartay" maxlength="2" required onkeypress="return numberonly(this,event)" />
+                                    </td>
+                                 </tr>
+
+                                 <tr class="cart-subtotal">
+                                    <th>Yıl</th>
+                                    <td>
+                                       <input type="text" name="kredikartyil" maxlength="4" required onkeypress="return numberonly(this,event)" />
+                                    </td>
+                                 </tr>
+
+                                 <tr class="cart-subtotal">
+                                    <th>CVV</th>
+                                    <td>
+                                       <input type="password" name="kredikartcvv" maxlength="3" required onkeypress="return numberonly(this,event)" />
+                                    </td>
+                                 </tr>
+
+
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+
+               <div class="row">
+                  <div class="col-lg-2 col-md-6 col-sm-6 "></div>
+                  <div class="col-lg-10 col-md-6 col-sm-6 ">
+                     <div class="cart_totals">
+                        <h2>FATURA BİLGİLERİNİZİ GİRİN</h2>
+                        <div class="total_table" style="border-color:black; border:solid">
+                           <table class="table-responsive">
+                              <tbody>
+                                 <tr class="cart-subtotal">
+                                    <th>Fatura Tipi</th>
+                                    <td>
+                                       <span class="amount">
+                                          @Html.RadioButton("faturatipi", "rbBireysel", new { Value = "rbBireysel", @checked = true }) Bireysel
+                                       </span>
+
+                                       <span class="amount">
+                                          @Html.RadioButton("faturatipi", "rbKurumsal", new { Value = "rbKurumsal" }) Kurumsal
+                                       </span>
+
+                                    </td>
+                                 </tr>
+
+                                 @*
+                                 Bireysel Radio buton tıklanırsa bu TR satırı gozükecek
+                                 *@
+                                 <tr class="cart-subtotal" id="tr_tckimlikno">
+                                    <th>TC Kimlik No</th>
+                                    <td>
+                                       <span class="amount">
+                                          <input type="text" id="txt_tckimlikno" name="txt_tckimlikno" maxlength="11" required onkeypress="return numberonly(this,event)" />
+
+                                       </span>
+                                    </td>
+                                 </tr>
+
+
+
+                                 @*
+                                 Kurumsal Radio buton tıklanırsa bu TR satırı gozükecek
+                                 *@
+                                 <tr class="cart-subtotal" id="tr_vergino" style="display:none;">
+                                    <th>Vergi No</th>
+                                    <td>
+                                       <span class="amount">
+                                          <input type="text" id="txt_vergino" name="txt_vergino" maxlength="10" onkeypress="return numberonly(this,event)" />
+
+                                       </span>
+                                    </td>
+                                 </tr>
+
+
+
+
+
+
+
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row">
+                  <div class="col-lg-2 col-md-6 col-sm-6 "></div>
+                  <div class="col-lg-10 col-md-6 col-sm-6 ">
+                     <div class="cart_totals">
+                        <h2>SATIŞ SÖZLEŞMESİ</h2>
+                        <div class="total_table" style="border-color:black; border:solid">
+                           <p>Satılan Ürün 14 gün içinde iade edilebilir.</p>
+                           <p>Kırılan ürünlerden şirketimiz sorumlu değildir.</p>
+
+                        </div>
+                        <br />
+                        <div>
+                           <p>
+                              <strong>
+                                 @Html.CheckBox("chk_kabulediyorum", false)
+                                 Yukarıdaki bilgilendirmeleri okudum, anladım , kabul ediyorum.
+                                
+                              </strong>
+
+                           </p>
+                        </div>
+
+                     </div>
+                     <div class="submit_crt" id="div_siparisi_onayla" style="display:none">
+                        <a href="@Url.Action("Order", "Home")" title="Siparişi Onayla">
+                           <input type="submit" class="update_cart" value="SİPARİŞİ ONAYLA" />
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- wishlist area end  -->
+@section Scripts{
+   <script>
+      $('input[type=radio][name=faturatipi]').on('change', function () {
+         //alert("Radio Butona tıklandı")
+
+         if ($(this).val() == "rbBireysel") {
+            //alert(" rbBireysel Radio Butona tıklandı")
+            $("#tr_tckimlikno").css("display","block")
+            $("#tr_vergino").css("display", "none")
+            $("#txt_tckimlikno").attr("required",true)
+            $("#txt_vergino").removeAttr("required")
+         } 
+         else{
+            //alert(" rbKurumsal Radio Butona tıklandı")
+            $("#tr_tckimlikno").css("display", "none")
+            $("#tr_vergino").css("display", "block")
+            $("#txt_vergino").attr("required", true)
+            $("#txt_tckimlikno").removeAttr("required")
+         
+         }
+      })
+
+      $('input[type=checkbox][name=chk_kabulediyorum]').on('change', function () {
+         //alert("Checkbox tıklandı")
+
+         if($(this).prop('checked')){
+         //alert("Checkbox tıklandı")
+               $("#div_siparisi_onayla").css("display","block")
+         }else{
+         //alert("Checkbox Kaldırıldı")
+                $("#div_siparisi_onayla").css("display","none")
+         }
+      })
+   </script>
+}

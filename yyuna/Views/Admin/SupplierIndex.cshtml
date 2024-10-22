@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Supplier>
+@{
+    ViewData["Title"] = "Marka Sayfası - ";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<!-- BEGIN THEME STYLES -->
+<link href="~1/admİn_panel_template/theme/assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css" />
+<link id="style_color" href="~/admİn_panel_template/theme/assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" />
+<link href="~/admİn_panel_template/theme/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico" />
+
+<div class="col-md-12" style="margin-top:70px">
+    <div class="white_shd full margin_bottom_30">
+        <div>
+            <div class="mt-3">
+                <h2></h2>
+            </div>
+            <div class="table_section padding_infor_info">
+
+                <div class="table-responsive-sm">
+                    <div class="heading1 margin_0 ">
+                        <h2 class="mb-3">Marka Listesi</h2>
+                    </div>
+                    <table class="table ">
+                        <thead>
+                            <tr class="fw-bold " style="color:#4D4D4D">
+                                <th style="font-weight:bold">@Html.DisplayNameFor(model => model.SupplierID)</th>
+                                <th style="font-weight:bold">@Html.DisplayNameFor(model => model.BrandName)</th>
+                                <th style="font-weight:bold">@Html.DisplayNameFor(model => model.PhotoPath)</th>
+                                <th style="font-weight:bold">@Html.DisplayNameFor(model => model.Active)</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr style="color:white">
+                                    <td>@Html.DisplayFor(model => item.SupplierID)</td>
+                                    <td>
+                                   
+                                        @Html.DisplayFor(model => item.BrandName)
+                                    </td>
+                                    <td>
+                                        <img src="~/resimler/@item.PhotoPath" style="border-radius:5px" width="80px" height="30px" alt="&nbsp&nbsp   @item.SupplierID Numaralı ID, Yüklenemedi."/>
+                                    </td>
+                                 
+                                    <td>
+                                        @if (item.Active)
+                                        {
+                                 <span class="badge badge-success " style="color:#000;font-weight: bold;">  Aktif  </span>
+
+                                        }
+                                        else
+                                        {
+                                 <span class="badge badge-warning " style="color:#000;font-weight: bold;">  Pasif  </span>
+                                        }
+
+                                    </td>
+                                    <td>
+                              <a asp-action="SupplierEdit" asp-route-id="@item.SupplierID" class="badge badge-info " style="color:#000;font-weight: bold;">Düzelt</a>
+                                    </td>
+                                    <td>
+                              <a asp-action="SupplierDetails" asp-route-id="@item.SupplierID" class="badge badge-primary " style="color:#000;font-weight: bold;">Detay</a>
+                                    </td>
+                                    <td>
+                              <a asp-action="SupplierDelete" asp-route-id="@item.SupplierID" class="badge badge-danger " style="color:#000;font-weight: bold;">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <p>
+         <a asp-action="SupplierCreate" asp-controller="Admin" class="btn w-100" style="background-color:#191C24;color:#FFFFFF"> Yeni Marka Ekle</a>
+        </p>
+    </div>
+
+</div>
+    <style>
+        .table td, .table th {
+            vertical-align: middle;
+        }
+    </style>

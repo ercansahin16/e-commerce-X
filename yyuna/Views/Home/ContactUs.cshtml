@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewData["Title"] = "ContactUs";
+    Layout = "~/Views/Shared/DefaultLayout.cshtml";
+}
+<script src="~/ADMİN_PANEL_TEMPLATE/theme/assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="~/ADMİN_PANEL_TEMPLATE/theme/assets/admin/pages/scripts/ui-toastr.js"></script>
+<style>
+   .toast-container {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: darkmagenta;
+      color: white;
+      text-align: center;
+      border-radius: 5px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.5s, visibility 0.5s;
+   }
+
+   .toast-content {
+      font-size: 16px;
+      color: white;
+   }
+
+   .toast-container.show {
+      visibility: visible;
+      opacity: 1;
+      color: white;
+   }
+
+</style>
+
+
+<div style="margin-top:155px"></div>
+<div style="margin-top:-150px"></div>
+<!-- breadcrumb area start  -->
+<div id="sp-breadcrumb-wrapper">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12 col-md-12" id="sp-breadcrumb">
+            <div class="sp-column ">
+               <div class="sp-module ">
+                  <div class="sp-module-content">
+                     <ul class="breadcrumb">
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- breadcrumb area End  -->
+<!-- map bannar area Start  -->
+<div class="map-area">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="map-info-area">
+               <h3>BİZE ULAŞIN</h3>
+               <p>Herhangi bir sorunuz, öneriniz ya da geri bildiriminiz mi var? Bizimle iletişime geçmekten çekinmeyin. Aşağıdaki iletişim bilgilerimiz aracılığıyla bize ulaşabilirsiniz.</p>
+               <div class="clear"></div>
+               <div class="row">
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                     <div class="contact-p">
+                        <form method="post" id="myForm" onsubmit="handleSubmit(event)">
+                           <input type="text" placeholder="Ad Soyad" name="namesurname" id="name">
+                           <input type="text" placeholder="Email " name="email" id="email">
+                           <input type="text" placeholder="Konu" name="Head" id="email">
+                           <textarea cols="30" rows="10" placeholder="Mesajınız..." name="Content"></textarea>
+                           <div class="submit control-group">
+                              <div class="controls">
+                                 <input style="background-color:#2980b9" type="submit" value="Gönder" class="btn btn-large btn-primary submit" onclick="showToast();">
+                                 @* Toast *@
+                                 <div id="toast-message" class="toast-container" style="color:black">
+                                    <div class="toast-content">
+                                       Mesaj gönderildi!
+                                    </div>
+                                 </div>
+                                 @* Toast *@
+                            
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                     <div class="c-right-area">
+                        <h6 class="sppb-addon-title">Bilgi</h6>
+                        <div class="sppb-addon-content">
+                           <p><span><em class="fa fa-map-marker"></em></span> İstanbul/Türkiye</p>
+                           <p><span><em class="fa fa-envelope"></em></span> esahin.ast@gmail.com</p>
+                           <p><span><em class="fa fa-phone"></em></span> 05340136773</p>
+                        </div>
+                     </div>
+                     <div class="c-right-area r-next">
+                        <h6 class="sppb-addon-title">Çalışma Saatleri</h6>
+                        <p>Pazartesi &ndash; Cuma: 09:00-20:00 <br />Cumartesi: 09:00-17:00<br /> Pazar: Kapalı</p>
+                        <div class="single-icons">
+                          @*  <ul>
+                              <li><a data-toggle="tooltip" data-placement="top" title="Follow us Facebook" class="black-tooltip s-1" href="contact.html#"><i class="fa fa-facebook"></i> </a></li>
+                              <li><a data-toggle="tooltip" data-placement="top" title="Follow us Twitter" class="black-tooltip s-2" href="contact.html#"><i class="fa fa-twitter"></i></a></li>
+                              <li><a data-toggle="tooltip" data-placement="top" title="Follow us Google-plus" class="black-tooltip s-3" href="contact.html#"><i class="fa fa-google-plus"></i></a></li>
+                              <li><a data-toggle="tooltip" data-placement="top" title="Follow us Pinterest" class="black-tooltip s-4" href="contact.html#"><i class="fa fa-pinterest"></i></a></li>
+                              <li><a data-toggle="tooltip" data-placement="top" title="Follow us Behance" class="black-tooltip s-5" href="contact.html#"><i class="fa fa-behance"></i></a></li>
+                           </ul> *@
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="googleMap" style="width:100%;height:433px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192697.8885055022!2d28.847373053349944!3d41.00546324294015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1725793840663!5m2!1str!2str" style="border:0; width:100%;height:100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- map bannar area End  --> 
+
+@* Toast *@
+<script>
+   function handleSubmit(event) {
+      event.preventDefault(); // Formun hemen gönderilmesini engeller
+
+
+      // Input alanlarını kontrol et
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+
+      if (!name || !email) {
+         alert("Lütfen tüm alanları doldurun.");
+         return; // Eğer alanlar boşsa form gönderilmesin
+      }
+
+      showToast(); // Toast bildirimi gösterilir
+
+      setTimeout(function () {
+         document.getElementById("myForm").submit(); // 3 saniye sonra form gönderilir
+      }, 3000); // Toast'ın 3 saniye boyunca gösterilmesi
+   }
+
+   function showToast() {
+      var toast = document.getElementById("toast-message");
+      toast.classList.add("show");
+
+      setTimeout(function () {
+         toast.classList.remove("show");
+      }, 3000); // Toast 3 saniye görünür
+   }
+</script>

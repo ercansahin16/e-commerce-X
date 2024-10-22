@@ -1,0 +1,76 @@
+﻿@model List<MyOrderViewModel>
+
+@{
+   ViewData["Title"] = "MyOrders";
+   Layout = "~/Views/Shared/DefaultLayout.cshtml";
+}
+
+<!-- wishlist area start  -->
+<div class="wishlist-wrapper" style="margin-top:100px;margin-bottom:200px">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12 col-md-12 col-lg-12 ">
+            <div class="cart-wrapper table-responsive">
+               <table class="shop_table cart ">
+                  <thead>
+                     <tr>
+                        <th class="product-name">SİPARİŞ NO</th>
+                        <th colspan="2" class="product-name">ÜRÜN</th>
+                        <th class="product-name">TARİH</th>
+                        <th class="product-name">ADET</th>
+                        <th class="product-name">FİYAT</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     @foreach (var item in Model)
+                     {
+                        <tr class="cart_item">
+
+                           <td class="product-name">
+                              @item.OrderGroupGUID
+                           </td>
+
+                           <td class="product-thumbnail">
+                              <a href="/Home/Details/@item.ProductID"><img width="114" height="130" alt="04" class="attachment-shop_thumbnail wp-post-image" src="~/resimler/@item.PhotoPath"></a>
+                           </td>
+
+                           <td class="product-name">
+                              <a href="/Home/Details/@item.ProductID">@item.ProductName</a>
+                           </td>
+
+                           <td class="product-name">
+                              @item.OrderDate.ToString("yyyy-MM-dd")
+                           </td>
+                           <td class="product-name">
+                              @item.Quantity
+                           </td>
+                           <td class="product-name">
+                              @item.UnitPrice.ToString("C")
+                           </td>
+
+                        </tr>
+                       
+                     }
+                     @{
+                        decimal total = 0;
+                        foreach (var item in Model)
+                        {
+                           total = total + (item.Quantity*item.UnitPrice);
+                        }
+                     }
+                  </tbody>
+               </table>
+               <div style="padding:30px"></div>
+               <table class="my-5 ">
+                  <tr >
+                     <td style="font-weight:bold; font-size:18px; color:#28a745;">
+                        Toplam:<span style="float:right">  @total.ToString("C")</span>
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- wishlist area end  -->

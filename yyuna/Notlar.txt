@@ -1,0 +1,30 @@
+﻿
+
+//admin profili
+mail: e@s.com
+şifre : 123      (202cb962ac59075b964b07152d234b70)
+---------------------------------------
+Normal site üyesi kullanıcılar:
+
+
+alınacaklar : 1 araba, 1 mop 2 sehpa 5 tencere
+//User  profili
+mail: ali@ali.com
+şifre: Ali%veli55 (Hasli Hali : 1679e4221993d93681a0575d48da436c)
+
+
+//User  profili
+mail: mehmet@mehmet.com
+şifre: 123  (hasli hali: 202cb962ac59075b964b07152d234b70)
+
+
+
+//Gerçek kullanıcı profili
+mail: esahin.ast@gmail.com
+Şifre : Ercan*123 (a1820fa9e24a9f3c4314cdde2ada27dc)
+
+
+MD5:
+SHA256 : 
+*********************************
+register ve login işlemleri yapılacak

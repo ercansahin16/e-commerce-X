@@ -1,0 +1,420 @@
+﻿@model IEnumerable<Category>
+@inject IHttpContextAccessor Accessor
+<!--
+Menüler
+
+-->
+<!-- start preloader -->
+@{
+   // Controller ve action'ı öğrenmek için
+
+   string currentAction = ViewContext.RouteData.Values["action"].ToString();
+}
+
+@if (currentAction != "ContactUs")
+{
+   <!-- start preloader -->
+   <div id="loader-wrapper">
+      <div class="logo"></div>
+      <div id="loader"></div>
+   </div>
+   <!-- end preloader -->
+}
+<!-- end preloader -->
+<!-- header area start -->
+
+<style>
+   .fixed-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0,0.1);
+   
+   }
+
+   .UserName {
+      position: fixed; /* Sabit bir konum belirler */
+      top: 105px; /* Sayfanın üst kısmından 10px boşluk bırakır */
+      right: 1%; /* Sayfanın sağ kısmından 10px boşluk bırakır */
+      z-index: 1000; /* Ögelerin üstünde kalmasını sağlamak için yüksek bir z-index değeri */
+      padding: 10px; /* İç boşluk ekler */
+      border-radius: 5px; /* Köşeleri yuvarlatır (isteğe bağlı) */
+   }
+
+      .UserName ul {
+         list-style-type: none; /* Liste işaretlerini kaldırır */
+         margin: 0;
+         padding: 0;
+      }
+
+      .UserName li {
+         display: inline-block; /* Listeleri yan yana dizmek için kullanılır */
+         font-size: 16px;
+      }
+</style>
+
+@{
+   var username = Accessor.HttpContext.Session.GetString("Email");
+}
+
+<div class="fixed-menu" >
+   <div class="header-top" style="min-height:10px;min-width:10px">
+      <div class="container" style="min-height:10px;min-width:10px">
+         <div class="row" style="min-height:10px;min-width:10px">
+            <div class="col-sm-12 col-md-3 col-lg-3" style="min-height:10px;min-width:10px">
+
+
+               <div class="logo-area">
+                  <a href="/Home/Index"><img src="~/img/myimg/Logoİsimli.png" alt="logo" style="margin-top:-28px;width:90%;height:auto" /> </a>
+                  <div class="UserName ">
+                     @if (username != null)
+                     {
+
+
+                        <ul>
+                           <li style=" float:left;"><p style=" float:right;color:#fff"> Hoşgeldiniz</p></li>
+                           <li><strong style="text-transform: lowercase; float:left;color:#F47E1E;margin-left:20px"> @username</strong></li>
+
+                        </ul>
+
+                     }
+                  </div>
+
+               </div>
+            </div>
+            <div class="col-sm-12 col-md-9 col-lg-9" style="float:left">
+               <div class="top-nav-area">
+                  <ul>
+                     <li>
+                        <a href="/Home/NewProducts">
+                           <i class="fa-regular fa-face-grin-stars" style="color:#2980b9;font-size:25px"></i>
+                           <div class="nav-select">
+                              <div class="text_menu">
+                                 Yenİ Ürünler
+                              </div>
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="/Home/SpecialProducts">
+                           <i class="fa-solid fa-heart" style="color:#2980b9;font-size:25px"></i>
+                           <div class="nav-select">
+                              <div class="text_menu">
+                                 Özel Ürünler
+                              </div>
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="/Home/DiscountedProducts">
+                           <div class="cart_area">
+                              <i class="fa-solid fa-tag" style="color:#2980b9;font-size:25px"></i>
+                              <div class="nav-select">
+                                 <div class="text_menu">
+                                    İndİrİmlİ ürünler
+                                 </div>
+                              </div>
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="/Home/HighlightedProducts">
+                           <div class="cart_area">
+                              <i class="fa-solid fa-star" style="color:#2980b9;font-size:25px"></i>
+                              <div class="nav-select">
+                                 <div class="text_menu">
+                                    Öne Çıkanlar
+                                 </div>
+                              </div>
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="/Home/TopsellerProducts">
+                           <div class="cart_area">
+                              <i class="fa-solid fa-user-tag" style="color:#2980b9;font-size:25px"></i>
+                              <div class="nav-select">
+                                 <div class="text_menu">
+                                    Çok Satılanlar
+                                 </div>
+                              </div>
+                           </div>
+                        </a>
+                     </li>
+
+                     @if (username != null)
+                     {
+                        <li>
+                           <a href="/Home/MyOrders">
+                              <div class="cart_area">
+                                 <i class="fa-solid fa-bag-shopping" style="color:#2980b9;font-size:25px"></i>
+                                 <div class="nav-select">
+                                    <div class="text_menu">
+                                       Siparişlerim
+                                    </div>
+                                 </div>
+                              </div>
+                           </a>
+                        </li>
+                     }
+
+                     <li>
+                        <a href="/Home/Cart">
+                           <div class="cart_area">
+                              <i class="fa fa-shopping-cart" style="color:#2980b9;font-size:25px"></i>
+                              <div class="nav-select">
+                                 <div class="text_menu">
+                                    Sepetİm
+
+                                    <span style="background-color:#313131; color:#F47E1E;margin-left:5px" class="badge">
+                                       @await Component.InvokeAsync("CartSummary")
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                        </a>
+                     </li>
+
+
+                  </ul>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </div>
+   <!-- main menu area start  -->
+   <div class="main-menu-area ">
+      <div class="container">
+         <div class="row">
+            <div class="col-xs-10 col-sm-8 col-md-3 col-lg-3">
+               <div class="menu-cat-area">
+                  <h3 class="nk-module-title" style="height:94px;">
+                     <span style="font-size:15px; vertical-align:top;">Kategorİ seÇ</span>
+                  </h3>
+                  <div class="nk-all-items " style="display:none">
+                     <div class="sp-module-content">
+                        <!-- treeview -->
+                        <div class="vina-treeview-virtuemart" id="vina-treeview-virtuemart93">
+                           <ul class="level0 treeview">
+
+                              @foreach (var item in Model.Where(x => x.ParentID == 0))
+                              {
+                                 <li>
+                                    <a title="@item.CategoryName" href="/Home/CategoryPage/@item.CategoryID" class="">
+                                       <span class="catTitle ">@item.CategoryName</span>
+                                    </a>
+                                    @* AltKategorileri var  mı ? *@
+                                    @foreach (var subitem in Model.Where(x => x.ParentID == item.CategoryID))
+                                    {
+                                       <ul class="sub-menu treeview" style="display:none;">
+                                          <li class=" expandable">
+                                             <a title="@subitem.CategoryName" href="/Home/CategoryPage/@subitem.CategoryID" class="">
+                                                <span class="catTitle ">@subitem.CategoryName</span>
+                                             </a>
+                                          </li>
+                                       </ul>
+                                    }
+                                 </li>
+                              }
+                              @*       <li class="expandable">
+                              <div class="hitarea expandable-hitarea"></div>
+
+                              <ul class="sub-menu treeview" style="display:none;">
+                              <li class="expandable">
+                              <div class="hitarea expandable-hitarea"></div>
+                              <a title="Fashion" href="index.html#" class="">
+                              <span class="catTitle ">Fashion</span>
+                              </a>
+                              <ul class="sub-menu treeview" style="display:none;">
+                              <li>
+                              <a title="Cocktail" href="index.html#">
+                              <span class="catTitle ">Cocktail</span>
+                              </a>
+                              </li>
+                              <li>
+                              <a title="Day" href="index.html#">
+                              <span class="catTitle ">Day</span>
+                              </a>
+                              </li>
+                              <li>
+                              <a title="Evening" href="index.html#">
+                              <span class="catTitle ">Evening</span>
+                              </a>
+                              </li>
+                              <li class="last">
+                              <a title="Sports" href="index.html#">
+                              <span class="catTitle ">Sports</span>
+                              </a>
+                              </li>
+                              </ul>
+                              </li>
+                              <li class="expandable">
+                              <div class="hitarea expandable-hitarea"></div>
+                              <a title="Handbags" href="index.html#">
+                              <span class="catTitle ">Handbags</span>
+                              </a>
+                              <ul class="sub-menu treeview" style="display:none;">
+                              <li>
+                              <a title="Sports" href="index.html#">
+                              <span class="catTitle ">Sports</span>
+                              </a>
+                              </li>
+                              <li>
+                              <a title="Run" href="index.html#">
+                              <span class="catTitle ">Run</span>
+                              </a>
+                              </li>
+                              <li>
+                              <a title="Sandals" href="index.html#">
+                              <span class="catTitle ">Sandals</span>
+                              </a>
+                              </li>
+                              <li class="last">
+                              <a title="Books" href="index.html#">
+                              <span class="catTitle ">Books</span>
+                              </a>
+                              </li>
+                              </ul>
+                              </li>
+                              </ul>
+                              </li> *@
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-xs-2 col-sm-3 col-md-9 col-lg-9">
+               <nav>
+                  <ul>
+                     <li class="active"> <a href="/Home/Index">Anasayfa</a> </li>
+                     @if (username == null)
+                     {
+                        <li><a href="/Home/Login">Gİrİş</a></li>
+                        <li><a href="/Home/Register">Üye Ol</a></li>
+                     }
+                     else
+                     {
+                        <li><a href="/Home/Logout">Çıkış</a></li>
+                     }
+
+
+
+                     <li><a href="/Home/AboutUs">Hakkımızda</a></li>
+                     <li><a href="/Home/ContactUs">İletİşİm</a></li>
+                     <li><a href="/Home/DetailedSearch">Detaylı Arama</a></li>
+
+
+
+
+                     @*   <li><a href="blog.html">Blog</a></li>
+                     <li><a href="portfolio.html">Portfolio</a></li>
+                     <li><a href="index.html#">pages</a>
+                     <div class="sp-dropdown-inner">
+                     <ul class="sp-dropdown-items">
+                     <li class="sp-menu-item"><a href="blog-post.html">blog post page</a></li>
+                     <li class="sp-menu-item"><a href="cart.html">cart page</a></li>
+                     <li class="sp-menu-item"><a href="checkout.html">checkout page</a></li>
+                     <li class="sp-menu-item"><a href="login.html">login page</a></li>
+                     <li class="sp-menu-item"><a href="shop.html">shop page</a></li>
+                     <li class="sp-menu-item"><a href="single-product.html">single product page</a></li>
+                     <li class="sp-menu-item"><a href="wishlist.html">wishlist</a></li>
+                     </ul>
+                     </div>
+                     </li>*@
+
+                  </ul>
+               </nav>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- main menu area end  -->
+   <!-- mobile-menu-area start -->
+   <div class="mobile-menu-area" >
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12" >
+               <div class="mobile-menu">
+                  <nav id="dropdown">
+                     <ul>
+                        <li class="active"> <a href="/Home/Index">Anasayfa</a> </li>
+                        @if (username == null)
+                        {
+                           <li><a href="/Home/Login">Gİrİş</a></li>
+                           <li><a href="/Home/Register">Üye Ol</a></li>
+                        }
+                        else
+                        {
+                           <li><a href="/Home/Logout">Çıkış</a></li>
+                        }
+
+
+
+                        <li><a href="/Home/AboutUs">Hakkımızda</a></li>
+                        <li><a href="/Home/ContactUs">İletİşİm</a></li>
+                        <li><a href="/Home/DetailedSearch">Detaylı Arama</a></li>
+                     </ul>
+                  </nav>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- mobile-menu-area end -->
+   <!-- search area start  -->
+   <div class="nk-search-area" style="background-color:#2980b9">
+      <div class="container" >
+         <div class="row">
+            <div class="col-xs-0 col-sm-0 col-md-3 col-lg-3">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+               <div class="nk-search">
+                  <div class="search_input">
+
+                     <input type="text" lang="tr" id="search" placeholder="Ürün, Kategori veya Marka Ara..." name="search" style="width:869px;height:18px" />
+                     <br />
+                     <div id="dv" style="width:869px;height:auto;margin-top:6px; border-style:solid;background-color:white;border-color:#2980b9;position:absolute;z-index:10000;">
+
+                        <ul id="sul">
+                        </ul>
+
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- main menu area end  -->
+   </div>
+</div>
+<script>
+   //Arama alanı için scripts, 2. harf basılınca çalısacak
+   $("#search").keyup(function () {
+      var id = $("#search").val();
+
+      if (id.length > 1) {
+         $.ajax({
+            url: '/Home/gettingProducts/' + id,
+            type: 'POST',
+            contentType: "application/json; charset=UTF-8",
+            success: function (result) {
+               $("#sul").remove();
+               $("#dv").append("<ul id='sul'>");
+               $("#sul").append(result);
+               $("#dv").append("</ul>");
+            }
+
+         })
+      }
+      else {
+         $("#sul").remove();
+      }
+
+   });
+</script>
