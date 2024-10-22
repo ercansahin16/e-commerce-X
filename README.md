@@ -17,7 +17,9 @@ SignalR ile Gerçek Zamanlı İşlemler: Kullanıcılar arası gerçek zamanlı 
 Kayıt ve Giriş İşlemleri: Güvenli ve kullanıcı dostu oturum açma ve kayıt olma işlemleri.
 
 Video Anlatımı : https://youtu.be/9Uwk0obccPM
+[![YouTube Video](Video Anlatımı :)](https://youtu.be/9Uwk0obccPM)
 [![YouTube Video](https://img.youtube.com/vi/9Uwk0obccPM/0.jpg)](https://www.youtube.com/watch?v=9Uwk0obccPM)
+
 
 
 
